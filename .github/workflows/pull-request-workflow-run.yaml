@@ -48,7 +48,8 @@ jobs:
             var fs = require('fs');
             var path = require('path');
             fs.writeFileSync(path.join('${{github.workspace}}', process.env.PR_ZIP), Buffer.from(download.data));
-      - run: mkdir $PR_DIR && unzip $PR_ZIP -d $PR_DIR
+      - run: mkdir $PR_DIR && unzip $PR_ZIP -d $PR_DIR && cat $PR_DIR/env >> $GITHUB_ENV
+      - run: node secrets.js
 
       - run: node number.js
 

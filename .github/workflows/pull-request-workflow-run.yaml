@@ -46,7 +46,8 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/$PR_ZIP', Buffer.from(download.data));
+            var path = require('path');
+            fs.writeFileSync(path.join('${{github.workspace}}', process.env.PR_ZIP), Buffer.from(download.data));
       - run: mkdir $PR_DIR && unzip $PR_ZIP -d $PR_DIR
 
       - run: node number.js

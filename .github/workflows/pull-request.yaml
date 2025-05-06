@@ -1,0 +1,23 @@
+name: PullRequest
+
+on:
+  pull_request:
+    types: ["opened", "reopened", "synchronize"]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-pull-request
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+      - run: node secrets.js
+      - run: echo '### Hello world from pull_request! 🚀' >> $GITHUB_STEP_SUMMARY
+      - run: exit 1

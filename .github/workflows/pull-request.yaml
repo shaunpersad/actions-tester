@@ -22,9 +22,12 @@ jobs:
       - name: Save PR
         run: |
           mkdir -p ./pr
-          echo -n ${{ github.event.number }} > ./pr/number
-          echo -n ${{ github.event.pull_request.head.repo.full_name }} > ./pr/repository
-          echo -n ${{ github.event.pull_request.head.sha }} > ./pr/sha
+          echo PR_ID=${{ github.event.number }} > ./pr/env
+          echo PR_REPOSITORY=${{ github.event.pull_request.head.repo.full_name }} > ./pr/env
+          echo PR_SHA=${{ github.event.pull_request.head.sha }} > ./pr/env
+#          echo -n ${{ github.event.number }} > ./pr/number
+#          echo -n ${{ github.event.pull_request.head.repo.full_name }} > ./pr/repository
+#          echo -n ${{ github.event.pull_request.head.sha }} > ./pr/sha
       - uses: actions/upload-artifact@v4
         with:
           name: pr

@@ -42,7 +42,7 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
-      - run: unzip pr.zip
+            fs.writeFileSync('${{github.workspace}}/_pr.zip', Buffer.from(download.data));
+      - run: mkdir _pr && unzip _pr.zip -d _pr
 
       - run: node number.js

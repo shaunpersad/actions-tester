@@ -20,9 +20,9 @@ jobs:
           cache: "npm"
       - run: node secrets.js
       - run: mkdir -p ./pr
-      - run: echo "${{ github.event.number }}" > ./pr/number
-      - run: echo "${{ github.event.pull_request.head.repo.full_name }}" > ./pr/repository
-      - run: echo "${{ github.event.pull_request.head.sha }}" > ./pr/sha
+      - run: echo -n ${{ github.event.number }} > ./pr/number
+      - run: echo -n ${{ github.event.pull_request.head.repo.full_name }} > ./pr/repository
+      - run: echo -n ${{ github.event.pull_request.head.sha }} > ./pr/sha
       - uses: actions/upload-artifact@v4
         with:
           name: pr

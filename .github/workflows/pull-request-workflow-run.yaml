@@ -52,3 +52,5 @@ jobs:
       - run: node secrets.js
 
       - run: node number.js
+
+      - run: echo "hmm?"

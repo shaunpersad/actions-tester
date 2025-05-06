@@ -8,6 +8,10 @@ on:
     types:
       - completed
 
+env:
+  PR_DIR: "_pr"
+  PR_ZIP: "_pr.zip"
+
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -42,8 +46,8 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/_pr.zip', Buffer.from(download.data));
-      - run: mkdir _pr && unzip _pr.zip -d _pr
+            fs.writeFileSync('${{github.workspace}}/$PR_ZIP', Buffer.from(download.data));
+      - run: mkdir $PR_DIR && unzip $PR_ZIP -d $PR_DIR
 
       - run: node number.js
 
